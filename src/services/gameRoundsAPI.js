@@ -1,5 +1,4 @@
-﻿// gameRoundsAPI.js
-import { apiConfig } from './apiConfig';
+﻿import { apiConfig } from './apiConfig';
 
 const getAPIBaseUrl = () => apiConfig.getBaseUrl();
 
@@ -8,12 +7,6 @@ const STATUSES = ['waiting-on-leader', 'voting', 'waiting-on-group', 'ended'];
 const RESULTS = ['none', 'citizens', 'enemies'];
 const PHASES = ['vote1', 'vote2', 'vote3'];
 
-// ✅ CORREGIDO: Importaciones simplificadas
-// Elimina estas líneas problemáticas:
-// import { buildHeaders, fetchJSON, handleJSON, setCache } from './api';
-// import { getCache } from './cache';
-
-// ✅ REEMPLAZA con funciones locales simplificadas
 const buildHeaders = ({ 
     player,
     password, 
@@ -31,7 +24,7 @@ const buildHeaders = ({
     return headers;
 };
 
-// Cache local simple
+// Cache local
 const _cache = new Map();
 const getCache = (key) => key ? (_cache.get(key) || null) : null;
 const setCache = (key, { etag = null, body }) => {
@@ -84,8 +77,6 @@ const handleResponse = async (response) => {
     }
     return response.json();
 };
-
-// ... el resto de las funciones auxiliares permanecen igual ...
 function isRoundLike(x) {
     return x && typeof x === 'object' &&
         typeof x.id === 'string' &&
@@ -216,7 +207,6 @@ export const gameRoundsAPI = {
         return fetchJSON(thisURL, { method: 'GET', headers, signal, cacheKey });
     },
 
-    // ... el resto de las funciones (proposeGroup, voteForGroup, submitAction) permanecen igual ...
     proposeGroup: async function proposeGroup(
         gameId,
         roundId,
